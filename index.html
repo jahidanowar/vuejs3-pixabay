@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue3 Image Search</title>
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <style>
+      .rounded {
+        border-radius: 1rem !important;
+      }
+      .grid-container {
+        column-count: 4;
+        column-gap: 10px;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .grid-container--item {
+        margin: 0;
+        display: grid;
+        grid-template-rows: 1fr auto;
+        margin-bottom: 10px;
+        break-inside: avoid;
+      }
+
+      .grid-container--item > img {
+        grid-row: 1 / -1;
+        grid-column: 1;
+      }
+    </style>
+  </head>
+  <body class="font-monospace">
+    <div id="app" class="container my-5">
+      <header class="rounded border shadow text-center p-5">
+        <h1 class="display-5 fw-bold">Vue 3 Image Finder 📷</h1>
+        <div class="w-80 mx-auto mt-3">
+          <div class="input-group rounded">
+            <input
+              type="search"
+              class="form-control"
+              placeholder="type anythin and press return key"
+              @keyup.enter="searchImage"
+            />
+            <span class="input-group-text">🔍</span>
+          </div>
+        </div>
+      </header>
+      <main class="mt-5">
+        <!-- This section will be visible when loading is set to true -->
+        <div v-if="loading" class="mt-5 text-center">
+          <h2>🐱‍🏍Searching image for you .....</h2>
+        </div>
+        <!-- This section will be visible when loading is set to false -->
+        <div v-else class="grid-container">
+          <div
+            v-for="(image, i) in images"
+            :key="i"
+            class="grid-container--item rounded overflow-hidden"
+          >
+            <img :src="image.webformatURL" class="w-100" />
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Vue 3 library CDN -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
